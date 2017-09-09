@@ -12,3 +12,7 @@ img:hover {
     animation-fill-mode: forwards;
 
 }
+
+.animate {
+    animation-name: example2;
+}
