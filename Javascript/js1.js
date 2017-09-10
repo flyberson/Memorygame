@@ -86,22 +86,52 @@ $(document).ready(function () {
         return randomnumber;
         
     }
-    for (var j = 0; j < 4; j++) {
+    makeblack();
 
-        for (var i = 0; i < 4; i++) {
-            var randomnumber=Math.floor(Math.random() * 8 + 1);
-            randomnumber = testrandomnumber(randomnumber);
+    function timer (){
+        setTimeout(makeblack,5000);
+    }
+    function makeblack () {
+        $("div.memoryimages img").detach();
+        $("div.memoryimages br").remove();
+        for (var j = 0; j < 4; j++) {
 
-            var imageused ='"'+ images[randomnumber]+'"'
-            $("div.memoryimages").append('<img src='+imageused +'style="height: 150px;width: 150px;">')
+            for (var i = 0; i < 4; i++) {
+                // var randomnumber=Math.floor(Math.random() * 8 + 1);
+                //randomnumber = testrandomnumber(randomnumber);
 
+                var imageused = '"' + images[0] + '"'
+                $("div.memoryimages").append('<img src=' + imageused + 'style="height: 150px;width: 150px;">')
+
+            }
+            $("div.memoryimages").append('<br>')
         }
-        $("div.memoryimages").append('<br>')
     }
 
 
 
+
     $("#Startbutton").click(function () {
+        $("div.memoryimages img").detach();
+        $("div.memoryimages br").remove();
+        for (var j = 0; j < 4; j++) {
+
+            for (var i = 0; i < 4; i++) {
+                var randomnumber=Math.floor(Math.random() * 8 + 1);
+                randomnumber = testrandomnumber(randomnumber);
+
+                var imageused ='"'+ images[randomnumber]+'"'
+                $("div.memoryimages").append('<img src='+imageused +'style="height: 150px;width: 150px;">')
+
+            }
+            $("div.memoryimages").append('<br>')
+
+        }
+        timer();
+        //window.setTimeout(alert("hello"),5000);
+
+
+        /*
         var image;
         image = r5;//$("#div1 img src").text();
         var imgget = images[2];
@@ -116,7 +146,7 @@ $(document).ready(function () {
         });
 
         alert("done")
-        //}
+        //}*/
 
 
     });
