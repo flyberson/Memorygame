@@ -1,5 +1,9 @@
 $(document).ready(function () {
-    var images = [];
+    var imagelocation = []; // location of image in game
+    var imagecount = 0; // amount of images with known location
+    var images = [];  // a storage for the images
+
+    // image variables
     var imgb = "../images/black.jpg";
     var img1 = "../images/100.jpg";
     var img2 = "../images/101.jpg";
@@ -9,6 +13,8 @@ $(document).ready(function () {
     var img6 = "../images/302.jpg";
     var img7 = "../images/409.jpg";
     var img8 = "../images/509.jpg";
+
+    // loading images to array
     images [0] = imgb;
     images [1] = img1;
     images [2] = img2;
@@ -18,6 +24,8 @@ $(document).ready(function () {
     images [6] = img6;
     images [7] = img7;
     images [8] = img8;
+
+    // amount of images in game
     var count1 =0;
     var count2 =0;
     var count3=0;
@@ -27,6 +35,7 @@ $(document).ready(function () {
     var count7=0;
     var count8=0;
 
+    // tests if there are more than 2 images in game
     function testrandomnumber( randomnumber) {
 
         switch(randomnumber){
@@ -86,11 +95,15 @@ $(document).ready(function () {
         return randomnumber;
         
     }
+    // starts game as black
     makeblack();
 
+    // delay for game makes black after 5 seconds
     function timer (){
         setTimeout(makeblack,5000);
     }
+
+    // makes all images black
     function makeblack () {
         $("div.memoryimages img").detach();
         $("div.memoryimages br").remove();
@@ -108,11 +121,17 @@ $(document).ready(function () {
         }
     }
 
+    $("img").click(function () {
+        alert("hello")
+        //alert($(this).attr("src"));
+        // $(this).attr("src", "../images/black.jpg");
+
+    });
 
 
 
     $("#Startbutton").click(function () {
-        $("div.memoryimages img").detach();
+        $("div.memoryimages img").remove();
         $("div.memoryimages br").remove();
         for (var j = 0; j < 4; j++) {
 
@@ -121,43 +140,21 @@ $(document).ready(function () {
                 randomnumber = testrandomnumber(randomnumber);
 
                 var imageused ='"'+ images[randomnumber]+'"'
+                imagelocation[imagecount] = images[randomnumber];
+                imagecount ++;
                 $("div.memoryimages").append('<img src='+imageused +'style="height: 150px;width: 150px;">')
 
             }
             $("div.memoryimages").append('<br>')
 
         }
+        alert(imagelocation.toString());
         timer();
-        //window.setTimeout(alert("hello"),5000);
-
-
-        /*
-        var image;
-        image = r5;//$("#div1 img src").text();
-        var imgget = images[2];
-
-        alert(images[Math.floor(Math.random() * 5)]);
-        //mages.get(image);
-        //for (var i =0, len = images.length; i<len;i++){
-        //$("img").each.attr("src","../images/black.jpg");
-        $.each($("img"), function (index, item) {
-            $(item).attr("src", images[Math.floor(Math.random() * 4 + 1)])
-
-        });
-
-        alert("done")
-        //}*/
-
 
     });
     $("#Button2end").click(function () {
         $("#div1,img").image.attr("src", images.pop())
     });
-    $("img").click(function () {
-        alert($(this).attr("src"));
-        $(this).attr("src", "../images/black.jpg");
 
-    });
 });
 
-//images []
