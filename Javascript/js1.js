@@ -89,7 +89,7 @@ $(document).ready(function () {
                 return 8;
 
             default:
-                alert("error")
+                alert("error");
                 break;
         }
         return randomnumber;
@@ -98,15 +98,61 @@ $(document).ready(function () {
     // starts game as black
     makeblack();
 
+    var clickcount = 0;
+    function makeclick (){
+
+        var firstimage;
+        var firstid;
+        var secondimage;
+        var secondid;
+
+
+
+        $("img").click(function () {
+            clickcount ++ ;
+            if(clickcount==1) {
+                firstid = $(this).attr("id");
+                $(this).attr("src", imagelocation[firstid]);
+                firstimage = $(this).attr("src");
+             
+            }
+            else {
+                secondid= $(this).attr("id");
+                $(this).attr("src", imagelocation[secondid]);
+                secondimage = $(this).attr("src");
+                clickcount = 0;
+
+                if (firstimage== secondimage) {
+
+                   // imagelocation[firstid].
+
+                        imagelocation.splice(firstid,1);
+
+                        $("div.memoryimages #"+firstid).remove();
+                    $("div.memoryimages #"+secondid).remove();
+                }
+                else {
+                   $(this).attr("src",images[0]);
+                   $("div.memoryimages #"+firstid).attr("src",images[0]);
+                }
+            }
+
+        });
+    }
+
     // delay for game makes black after 5 seconds
     function timer (){
-        setTimeout(makeblack,5000);
+        setTimeout(makeblack,1000);
+        setTimeout(makeclick,1500);
+
     }
 
     // makes all images black
+
     function makeblack () {
         $("div.memoryimages img").detach();
         $("div.memoryimages br").remove();
+        var imgblocation = 0;
         for (var j = 0; j < 4; j++) {
 
             for (var i = 0; i < 4; i++) {
@@ -114,25 +160,38 @@ $(document).ready(function () {
                 //randomnumber = testrandomnumber(randomnumber);
 
                 var imageused = '"' + images[0] + '"'
-                $("div.memoryimages").append('<img src=' + imageused + 'style="height: 150px;width: 150px;">')
+                $("div.memoryimages").append('<img src=' + imageused + ' id='+imgblocation+' style="height: 150px;width: 150px;">')
+                imgblocation ++;
+            }
+            $("div.memoryimages").append('<br>')
+        }
+    }
+    /*
 
+    function makeblack () {
+        var imgblocation = 0;
+        $("div.memoryimages img").attr("src",images[0]);
+        for (var j = 0; j < 4; j++) {
+
+            for (var i = 0; i < 4; i++) {
+                // var randomnumber=Math.floor(Math.random() * 8 + 1);
+                //randomnumber = testrandomnumber(randomnumber);
+
+                var imageused = '"' + images[0] + '"'
+                $("div.memoryimages").append('<img src=' + imageused + ' id='+imgblocation+' style="height: 150px;width: 150px;">')
+                imgblocation ++;
             }
             $("div.memoryimages").append('<br>')
         }
     }
 
-    $("img").click(function () {
-        alert("hello")
-        //alert($(this).attr("src"));
-        // $(this).attr("src", "../images/black.jpg");
-
-    });
-
+*/
 
 
     $("#Startbutton").click(function () {
         $("div.memoryimages img").remove();
         $("div.memoryimages br").remove();
+        var imgplocation =0;
         for (var j = 0; j < 4; j++) {
 
             for (var i = 0; i < 4; i++) {
@@ -142,14 +201,18 @@ $(document).ready(function () {
                 var imageused ='"'+ images[randomnumber]+'"'
                 imagelocation[imagecount] = images[randomnumber];
                 imagecount ++;
-                $("div.memoryimages").append('<img src='+imageused +'style="height: 150px;width: 150px;">')
+                $("div.memoryimages").append('<img src='+imageused + ' id='+imgplocation+ ' style="height: 150px;width: 150px;">')
+                imgplocation ++;
 
             }
             $("div.memoryimages").append('<br>')
 
         }
-        alert(imagelocation.toString());
+        // alert(imagelocation.toString());
         timer();
+
+
+
 
     });
     $("#Button2end").click(function () {
@@ -157,4 +220,5 @@ $(document).ready(function () {
     });
 
 });
+
 
