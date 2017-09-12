@@ -110,35 +110,54 @@ $(document).ready(function () {
 
         $("img").click(function () {
             clickcount ++ ;
+
+            //if first click image
             if(clickcount==1) {
                 firstid = $(this).attr("id");
                 $(this).attr("src", imagelocation[firstid]);
                 firstimage = $(this).attr("src");
-             
+
             }
+            //else second click image
             else {
                 secondid= $(this).attr("id");
                 $(this).attr("src", imagelocation[secondid]);
                 secondimage = $(this).attr("src");
                 clickcount = 0;
 
+                //if the same source
+
                 if (firstimage== secondimage) {
+                    if(firstid ==secondid){
+                        alert("error same image")
+                    }
 
-                   // imagelocation[firstid].
 
-                        imagelocation.splice(firstid,1);
+                    //imagelocation.splice(firstid,1);
+                    //imagelocation.splice(secondid,1);
 
-                        $("div.memoryimages #"+firstid).remove();
+                    $("div.memoryimages #"+firstid).remove();
                     $("div.memoryimages #"+secondid).remove();
                 }
+                //must be different source repaint black
                 else {
-                   $(this).attr("src",images[0]);
-                   $("div.memoryimages #"+firstid).attr("src",images[0]);
+
+                   // $(this).attr("src",images[0]);
+
+                   setTimeout(   function repaint (){
+
+                       $("div.memoryimages #"+firstid).attr("src",images[0]);
+                       $("div.memoryimages #"+secondid).attr("src",images[0]);
+                   }, 3000);
+
+                 //   $("div.memoryimages #"+firstid).attr("src",images[0]);
+                   // $("div.memoryimages #"+secondid).attr("src",images[0]);
                 }
             }
 
         });
     }
+
 
     // delay for game makes black after 5 seconds
     function timer (){
