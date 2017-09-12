@@ -120,41 +120,46 @@ $(document).ready(function () {
             }
             //else second click image
             else {
-                secondid= $(this).attr("id");
+                secondid = $(this).attr("id");
+                if (firstid == secondid) {
+                    clickcount = 1;
+                    return;
+                }
                 $(this).attr("src", imagelocation[secondid]);
                 secondimage = $(this).attr("src");
+
                 clickcount = 0;
 
                 //if the same source
 
-                if (firstimage== secondimage) {
-                    if(firstid ==secondid){
-                        alert("error same image")
-                    }
+                if (firstimage == secondimage && firstid != secondid) {
+
 
 
                     //imagelocation.splice(firstid,1);
                     //imagelocation.splice(secondid,1);
 
-                    $("div.memoryimages #"+firstid).remove();
-                    $("div.memoryimages #"+secondid).remove();
+                    $("div.memoryimages #" + firstid).remove();
+                    $("div.memoryimages #" + secondid).remove();
                 }
                 //must be different source repaint black
-                else {
+                if (firstid != secondid && firstimage != secondimage) {
 
-                   // $(this).attr("src",images[0]);
+                    // $(this).attr("src",images[0]);
 
-                   setTimeout(   function repaint (){
+                    setTimeout(function repaint() {
 
-                       $("div.memoryimages #"+firstid).attr("src",images[0]);
-                       $("div.memoryimages #"+secondid).attr("src",images[0]);
-                   }, 3000);
+                        $("div.memoryimages #" + firstid).attr("src", images[0]);
+                        $("div.memoryimages #" + secondid).attr("src", images[0]);
+                    }, 3000);
 
-                 //   $("div.memoryimages #"+firstid).attr("src",images[0]);
-                   // $("div.memoryimages #"+secondid).attr("src",images[0]);
+                    //   $("div.memoryimages #"+firstid).attr("src",images[0]);
+                    // $("div.memoryimages #"+secondid).attr("src",images[0]);
                 }
-            }
 
+
+
+            }
         });
     }
 
