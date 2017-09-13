@@ -13,6 +13,15 @@ img:hover {
 
 }
 
+.noanime{
+    animation: none !important;
+}
+
 .animate {
     animation-name: example2;
+}
+
+
+.hidden{
+    opacity: 0;
 }

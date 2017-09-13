@@ -99,6 +99,7 @@ $(document).ready(function () {
     makeblack();
 
     var clickcount = 0;
+    var timedone;
     function makeclick (){
 
         var firstimage;
@@ -109,6 +110,15 @@ $(document).ready(function () {
 
 
         $("img").click(function () {
+
+
+            //check if clicking on already hidden image
+            if($(this).css("opacity")==0){
+                return;
+            }
+            if(timedone==false){
+                return;
+            }
             clickcount ++ ;
 
             //if first click image
@@ -120,9 +130,11 @@ $(document).ready(function () {
             }
             //else second click image
             else {
+                timedone = false;
                 secondid = $(this).attr("id");
                 if (firstid == secondid) {
                     clickcount = 1;
+                    timedone = true;
                     return;
                 }
                 $(this).attr("src", imagelocation[secondid]);
@@ -139,8 +151,13 @@ $(document).ready(function () {
                     //imagelocation.splice(firstid,1);
                     //imagelocation.splice(secondid,1);
 
-                    $("div.memoryimages #" + firstid).remove();
-                    $("div.memoryimages #" + secondid).remove();
+                    $("div.memoryimages #" + firstid).addClass("hidden");
+                    $("div.memoryimages #" + firstid).addClass("noanime");
+                    $("div.memoryimages #" + secondid).addClass("hidden");
+                    $("div.memoryimages #" + secondid).addClass("noanime");
+                    timedone= true;
+                    //$("div.memoryimages #" + firstid).remove();
+                    //$("div.memoryimages #" + secondid).remove();
                 }
                 //must be different source repaint black
                 if (firstid != secondid && firstimage != secondimage) {
@@ -151,6 +168,7 @@ $(document).ready(function () {
 
                         $("div.memoryimages #" + firstid).attr("src", images[0]);
                         $("div.memoryimages #" + secondid).attr("src", images[0]);
+                        timedone= true;
                     }, 3000);
 
                     //   $("div.memoryimages #"+firstid).attr("src",images[0]);
@@ -185,6 +203,7 @@ $(document).ready(function () {
 
                 var imageused = '"' + images[0] + '"'
                 $("div.memoryimages").append('<img src=' + imageused + ' id='+imgblocation+' style="height: 150px;width: 150px;">')
+                // $("div.memoryimages").addClass("noanime")
                 imgblocation ++;
             }
             $("div.memoryimages").append('<br>')
@@ -211,8 +230,14 @@ $(document).ready(function () {
 
 */
 
-
+var started=false;
     $("#Startbutton").click(function () {
+        /*if(started=true){
+        alert("already started refresh")
+            return;
+        }
+        started=true;
+*/
         $("div.memoryimages img").remove();
         $("div.memoryimages br").remove();
         var imgplocation =0;
@@ -240,7 +265,7 @@ $(document).ready(function () {
 
     });
     $("#Button2end").click(function () {
-        $("#div1,img").image.attr("src", images.pop())
+
     });
 
 });
